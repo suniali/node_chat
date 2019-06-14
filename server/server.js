@@ -18,7 +18,12 @@ io.on('connection', (socket) => {
     console.log('New user Connected.');
 
 
-    socket.emit('newEmail');
+    socket.emit('newEmail', {
+        from: "jarvismatroki@gmail.com",
+        to: "amin@gmail.com",
+        subject: "feeling",
+        text: "I Love You Amin."
+    });
 
     socket.on('disconnect', () => {
         console.log('Server disconnected.');
