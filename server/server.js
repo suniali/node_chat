@@ -16,11 +16,17 @@ console.log(publicPath);
 
 io.on('connection', (socket) => {
     console.log('New user Connected.');
+
+
+    socket.emit('newEmail');
+
+    socket.on('disconnect', () => {
+        console.log('Server disconnected.');
+    });
 });
 
-io.on('disconnect', () => {
-    console.log('Server disconnected.');
-});
+
+
 
 server.listen(port, () => {
     console.log('Server Comes up at Port ', port);
