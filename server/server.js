@@ -25,6 +25,33 @@ io.on('connection', (socket) => {
         text: "I Love You Amin."
     });
 
+    socket.emit('newMessage', {
+        from: "Ali",
+        text: 'wellcome to Chat app.'
+    });
+
+    socket.broadcast.emit('newMessage', {
+        from: "َAli",
+        text: "Amin I Love you.",
+        created: new Date().getTime()
+    });
+
+    socket.on('createMessage', (message) => {
+
+        // io.emit('newMessage', {
+        //     from: message.from,
+        //     text: message.text,
+        //     created: new Date().getTime()
+        // });
+
+
+        // socket.broadcast.emit('newMessage', {
+        //     from: message.from,
+        //     text: message.text,
+        //     created: new Date().getTime()
+        // });
+    });
+
     socket.on('disconnect', () => {
         console.log('Server disconnected.');
     });
