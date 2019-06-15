@@ -6,6 +6,7 @@ const http = require('http');
 const app = express();
 const port = process.env.PORT || 3000;
 const publicPath = path.join(__dirname, '../public');
+var { generateMessage } = require('./utils/message');
 
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -25,26 +26,14 @@ io.on('connection', (socket) => {
         text: "I Love You Amin."
     });
 
-    socket.emit('newMessage', {
-        from: "Ali",
-        text: 'wellcome to Chat app.'
-    });
+    socket.emit('newMessage', generateMessage('Jarvis', "Welcome to Chat app."));
 
-    socket.broadcast.emit('newMessage', {
-        from: "َAli",
-        text: "Amin I Love you.",
-        created: new Date().getTime()
-    });
+    socket.broadcast.emit('newMessage', generateMessage('Ali Matroki', "I Love You Amin."));
 
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, callback) => {
 
-        // io.emit('newMessage', {
-        //     from: message.from,
-        //     text: message.text,
-        //     created: new Date().getTime()
-        // });
-
-
+        io.emit('newMessage', generateMessage(message.from, message.text));
+        callback("This is a  knowledgment");
         // socket.broadcast.emit('newMessage', {
         //     from: message.from,
         //     text: message.text,

@@ -15,3 +15,10 @@ socket.on('newEmail', function (email) {
 socket.on('newMessage', function (message) {
     console.log('new Message', message);
 });
+
+socket.emit('createMessage', {
+    from: "Amin",
+    text: "I Love You Jarvis."
+}, function (data) {
+    console.log('Got it.', data);
+});
