@@ -44,17 +44,19 @@ jQuery('#message-form').on('submit', function (e) {
     });
 });
 
-jQuery('#send-location').on('click', function () {
+var locationButton = jQuery('#send-location').on('click', function () {
     if (!navigator.geolocation) {
         alert('Location technology is not suported by this browser!');
     }
-
+    locationButton.attr('disabled', 'disabled');
     navigator.geolocation.getCurrentPosition(function (position) {
+        locationButton.removeAttr('disabled');
         socket.emit('createLocationMessage', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         });
     }, function () {
         console.log('Uncable to fetch location.');
+        locationButton.removeAttr('disabled');
     });
 });
