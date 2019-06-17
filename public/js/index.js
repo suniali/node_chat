@@ -48,15 +48,15 @@ var locationButton = jQuery('#send-location').on('click', function () {
     if (!navigator.geolocation) {
         alert('Location technology is not suported by this browser!');
     }
-    locationButton.attr('disabled', 'disabled');
+    locationButton.attr('disabled', 'disabled').text('Sending location...');
     navigator.geolocation.getCurrentPosition(function (position) {
-        locationButton.removeAttr('disabled');
+        locationButton.removeAttr('disabled').text('Send Location');
         socket.emit('createLocationMessage', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         });
     }, function () {
         console.log('Uncable to fetch location.');
-        locationButton.removeAttr('disabled');
+        locationButton.removeAttr('disabled').text('Send Location');
     });
 });
