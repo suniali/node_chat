@@ -17,8 +17,9 @@ socket.on('newMessage', function (message) {
 
     var li = jQuery('<li></li>');
     // var a = jQuery('<a target="_blank">My Current Location</a>');
+    var formatedTime = moment(message.createAt).format('h:mm a');
 
-    li.text(message.from + " : " + message.text);
+    li.text(formatedTime + " " + message.from + " : " + message.text);
     // a.attr('href', 'http://www.google.com');
     // li.append(a);
     jQuery('#message').append(li);
