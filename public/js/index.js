@@ -1,5 +1,27 @@
 var socket = io();
 
+function scrollToBottom() {
+    var messages = jQuery('#message');
+    var newMessage = messages.children('li:last-child');
+
+    var clientHeight = messages.prop('clientHeight');
+    var scrollTop = messages.prop('scrollTop');
+    var scrolHeight = messages.prop('scrollHeight');
+    var newMessageHeight = newMessage.innerHeight();
+    var lastMessageHight = newMessage.prev().innerHeight();
+
+    // console.log('clientHeight : ', clientHeight);
+    // console.log('scrolTop : ', scrollTop);
+    // console.log('scrolHeight : ', scrolHeight);
+    // console.log('newMessageHeight : ', newMessageHeight);
+    // console.log('lastMessageHeight : ', lastMessageHight);
+
+
+    if (clientHeight + scrollTop + newMessageHeight + lastMessageHight >= scrolHeight) {
+        messages.scrollTop(scrolHeight);
+    }
+}
+
 socket.on('connect', function () {
     console.log('Connected to the server.');
 });
@@ -23,6 +45,7 @@ socket.on('newMessage', function (message) {
     // a.attr('href', 'http://www.google.com');
     // li.append(a);
     jQuery('#message').append(li);
+    scrollToBottom();
 });
 
 socket.emit('createMessage', {
